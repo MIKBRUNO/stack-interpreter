@@ -20,7 +20,7 @@ public class Program {
             in = System.in;
         }
 
-        Interpreter inter = new Interpreter(in, System.out);
+        Interpreter inter = new Interpreter(in, System.out, System.err);
         inter.run();
 
         try {
