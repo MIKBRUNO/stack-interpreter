@@ -14,7 +14,7 @@ public class Interpreter {
         Error = err;
         Context = new RuntimeContext(Output);
         try {
-            Parser = new CommandParser();
+            CommandFactory.initFactory();
         }
         catch (ConfigurationException e) {
             Error.print("Error occurred while initialising: " + e.getMessage() + '\n');
@@ -24,7 +24,7 @@ public class Interpreter {
     public void run() {
         while (Context.isRunning && Input.hasNext()) {
             try {
-                Command cmd = Parser.parse(Input.nextLine());
+                Command cmd = CommandParser.parse(Input.nextLine());
                 if (cmd != null) {
                     cmd.doAction(Context);
                 }
@@ -44,5 +44,4 @@ public class Interpreter {
     private final PrintStream Output;
     private final PrintStream Error;
     private final RuntimeContext Context;
-    private CommandParser Parser;
 }

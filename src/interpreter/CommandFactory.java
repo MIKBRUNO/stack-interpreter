@@ -1,6 +1,5 @@
-package interpreter.commands;
+package interpreter;
 
-import interpreter.Command;
 import interpreter.commands.exceptions.ConfigurationException;
 import interpreter.exceptions.InterpreterException;
 
@@ -10,9 +9,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class CommandFactory {
-    public CommandFactory() {
-        Commands = new HashMap<>();
-        InputStream in = this.getClass().getResourceAsStream(ConfigFile);
+    public static void initFactory() {
+        InputStream in = CommandFactory.class.getResourceAsStream(ConfigFile);
         if (in == null)
             throw new ConfigurationException("cannot open configuration file: " + ConfigFile);
         else {
@@ -29,7 +27,7 @@ public class CommandFactory {
             }
         }
     }
-    public Command create(String commandName) {
+    public static Command create(String commandName) {
         if (null == commandName || !Commands.containsKey(commandName))
             throw new InterpreterException("bad command name");
         try {
@@ -40,5 +38,5 @@ public class CommandFactory {
         }
     }
     private static final String ConfigFile = "factory_configuration.txt";
-    private final Map<String, Class<Command>> Commands;
+    private static final Map<String, Class<Command>> Commands = new HashMap<>();
 }
