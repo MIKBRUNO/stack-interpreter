@@ -8,13 +8,13 @@ import java.util.List;
 
 public class PushCommand extends Command {
     @Override
-    public void doAction(RuntimeContext context) {
+    public void doAction(RuntimeContext context) throws InterpreterException {
         try {
             double value;
-            if (Character.isDigit(Value.charAt(0))) {
+            try {
                 value = Double.parseDouble(Value);
             }
-            else {
+            catch (NumberFormatException e) {
                 value = context.getDefinitions().get(Value);
             }
             context.getDataStack().push(value);
@@ -28,7 +28,7 @@ public class PushCommand extends Command {
         return "PUSH";
     }
     @Override
-    public void takeArguments(List<Object> args) {
+    public void takeArguments(List<Object> args) throws InterpreterException {
         if (args.size() != 1)
             throw new InterpreterException("wrong number of arguments for" + getName());
         try {

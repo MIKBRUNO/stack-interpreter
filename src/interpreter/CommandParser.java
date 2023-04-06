@@ -1,11 +1,13 @@
 package interpreter;
 
+import interpreter.exceptions.InterpreterException;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 public class CommandParser {
-    public static Command parse(String line) {
+    public static Command parse(String line) throws InterpreterException {
         if (line == null || line.equals(""))
             return null;
         line = line.trim();

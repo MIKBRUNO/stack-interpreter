@@ -1,13 +1,12 @@
 package interpreter.exceptions;
 
-public class InterpreterException extends RuntimeException {
+public class InterpreterException extends Exception {
     public InterpreterException(String s, boolean isCritical) {
-        super("Interpreter exception: " + s);
+        super(s);
         IsCritical = isCritical;
     }
     public InterpreterException(String s) {
-        super("Interpreter exception: " + s);
-        IsCritical = false;
+        this(s, false);
     }
     public boolean isCritical() {
         return IsCritical;

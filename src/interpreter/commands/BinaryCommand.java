@@ -8,7 +8,7 @@ import java.util.EmptyStackException;
 
 public abstract class BinaryCommand extends Command {
     @Override
-    public void doAction(RuntimeContext context) {
+    public void doAction(RuntimeContext context) throws InterpreterException {
         try {
             double a = context.getDataStack().pop();
             double b = context.getDataStack().pop();

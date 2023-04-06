@@ -8,7 +8,7 @@ import java.util.List;
 
 public class DefineCommand extends Command {
     @Override
-    public void doAction(RuntimeContext context) {
+    public void doAction(RuntimeContext context) throws InterpreterException {
         if (DefinitionValue == null || DefinitionName == null)
             throw new InterpreterException("no arguments for " + getName());
         context.getDefinitions().put(DefinitionName, DefinitionValue);
@@ -18,7 +18,7 @@ public class DefineCommand extends Command {
         return "DEFINE";
     }
     @Override
-    public void takeArguments(List<Object> args) {
+    public void takeArguments(List<Object> args) throws InterpreterException {
         if (args == null || args.size() != 2)
             throw new InterpreterException("bad number of arguments for " + getName());
         try {

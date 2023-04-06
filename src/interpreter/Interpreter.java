@@ -1,23 +1,25 @@
 package interpreter;
 
-import interpreter.commands.exceptions.ConfigurationException;
+import interpreter.exceptions.ConfigurationException;
 import interpreter.exceptions.InterpreterException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Interpreter {
+    private final static Logger logger = LoggerFactory.getLogger(Interpreter.class);
     public Interpreter(InputStream in, PrintStream out, PrintStream err) {
         Input = new Scanner(in);
-        Output = out;
-        Error = err;
-        Context = new RuntimeContext(Output);
+        Context = new RuntimeContext(out);
         try {
             CommandFactory.initFactory();
         }
         catch (ConfigurationException e) {
-            Error.print("Error occurred while initialising: " + e.getMessage() + '\n');
+//            Error.print("Error occurred while initialising: " + e.getMessage() + '\n');
+            logger.error("Unsuccessful initialization: " + e.getMessage());
             Context.isRunning = false;
         }
     }
@@ -27,21 +29,26 @@ public class Interpreter {
                 Command cmd = CommandParser.parse(Input.nextLine());
                 if (cmd != null) {
                     cmd.doAction(Context);
+                    logger.info("Command " + cmd.getName() + " executed");
                 }
             }
             catch (InterpreterException e) {
-                Error.print("Error while running: " + e.getMessage() + '\n');
-                if (e.isCritical())
+//                Error.print("Error while running: " + e.getMessage() + '\n');
+                if (e.isCritical()) {
+                    logger.error("Critical error occurred while operation: " + e.getMessage());
                     Context.isRunning = false;
+                }
+                else {
+                    logger.warn("Not critical exception occurred: " + e.getMessage());
+                }
             }
             catch (Exception e) {
-                e.printStackTrace(Error);
+//                e.printStackTrace(Error);
+                logger.error("Critical unexpected exception occurred: ", e);
                 Context.isRunning = false;
             }
         }
     }
     private final Scanner Input;
-    private final PrintStream Output;
-    private final PrintStream Error;
     private final RuntimeContext Context;
 }

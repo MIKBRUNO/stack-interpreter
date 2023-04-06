@@ -3,7 +3,7 @@ package interpreter.commands;
 public class DivCommand extends BinaryCommand {
     @Override
     public String getName() {
-        return "Div";
+        return "DIV";
     }
 
     @Override

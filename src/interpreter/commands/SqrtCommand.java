@@ -6,7 +6,7 @@ import interpreter.exceptions.InterpreterException;
 
 public class SqrtCommand extends Command {
     @Override
-    public void doAction(RuntimeContext context) {
+    public void doAction(RuntimeContext context) throws InterpreterException {
         if (context.getDataStack().isEmpty())
             throw new InterpreterException("bad command with an empty stack");
         double v = context.getDataStack().pop();

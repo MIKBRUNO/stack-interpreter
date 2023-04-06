@@ -1,0 +1,5 @@
+PUSH 12
+PUSH -100
+*
+PRINT
+EXIT

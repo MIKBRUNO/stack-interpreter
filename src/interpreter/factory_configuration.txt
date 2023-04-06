@@ -4,7 +4,7 @@ PUSH -> interpreter.commands.PushCommand
 PRINT -> interpreter.commands.PrintCommand
 POP -> interpreter.commands.PopCommand
 SQRT -> interpreter.commands.SqrtCommand
-PLUS -> interpreter.commands.PlusCommand
-MINUS -> interpreter.commands.MinusCommand
-MUL -> interpreter.commands.MulCommand
-DIV -> interpreter.commands.DivCommand
++ -> interpreter.commands.PlusCommand
+- -> interpreter.commands.MinusCommand
+* -> interpreter.commands.MulCommand
+/ -> interpreter.commands.DivCommand
